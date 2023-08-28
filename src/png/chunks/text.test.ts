@@ -7,7 +7,7 @@ import { pngReadTEXT, pngWriteTEXT } from './text.ts'
 const referenceImage = readFileSync(process.cwd() + '/resources/png-rw-reference.png')
 const referenceImageData = new Uint8Array(referenceImage)
 
-test('encode tEXt chunk should be same like reference chunk', () => {
+test('write tEXt chunk should match reference chunk', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.TEXT).at(0)
 
   const chunk = pngWriteTEXT({
@@ -18,7 +18,7 @@ test('encode tEXt chunk should be same like reference chunk', () => {
   expect(chunk).toStrictEqual(referenceChunk)
 })
 
-test('decode tEXt reference chunk should match tEXt object', () => {
+test('read tEXt reference chunk should match tEXt object', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.TEXT).at(0) as Chunk
 
   const tEXt = pngReadTEXT(referenceChunk)

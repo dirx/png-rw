@@ -7,7 +7,7 @@ import { pngReadITXT, pngWriteITXT } from './itxt.ts'
 const referenceImage = readFileSync(process.cwd() + '/resources/png-rw-reference.png')
 const referenceImageData = new Uint8Array(referenceImage)
 
-test('encode iTXt chunk should be same like reference chunk', () => {
+test('write iTXt chunk should match reference chunk', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.ITXT && pngReadITXT(chunk).languageTag.startsWith('de-DE')).at(0)
 
   const chunk = pngWriteITXT({
@@ -22,7 +22,7 @@ test('encode iTXt chunk should be same like reference chunk', () => {
   expect(chunk).toStrictEqual(referenceChunk)
 })
 
-test('decode iTXt reference chunk should match iTXt object', () => {
+test('read iTXt reference chunk should match iTXt object', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.ITXT && pngReadITXT(chunk).languageTag.startsWith('de-DE')).at(0) as Chunk
 
   const iTXt = pngReadITXT(referenceChunk)

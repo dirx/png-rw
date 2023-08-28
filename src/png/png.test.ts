@@ -6,7 +6,7 @@ import { createChunk, pngRead, pngWrite } from './png.ts'
 const referenceImage = readFileSync(process.cwd() + '/resources/png-rw-reference.png')
 const referenceImageData = new Uint8Array(referenceImage)
 
-test('decode and encode chunks should result in same image data', () => {
+test('read and write chunks should result in same image data', () => {
   const chunks = pngRead(referenceImageData)
   const imageData = pngWrite(chunks)
 

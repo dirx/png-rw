@@ -7,7 +7,7 @@ import { pngReadIHDR, pngWriteIHDR } from './ihdr.ts'
 const referenceImage = readFileSync(process.cwd() + '/resources/png-rw-reference.png')
 const referenceImageData = new Uint8Array(referenceImage)
 
-test('encode IHDR chunk should be same like reference chunk', () => {
+test('write IHDR chunk should match reference chunk', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.IHDR && pngReadIHDR(chunk)).at(0)
 
   const chunk = pngWriteIHDR({
@@ -23,7 +23,7 @@ test('encode IHDR chunk should be same like reference chunk', () => {
   expect(chunk).toStrictEqual(referenceChunk)
 })
 
-test('decode IHDR reference chunk should match IHDR object', () => {
+test('read IHDR reference chunk should match IHDR object', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.IHDR && pngReadIHDR(chunk)).at(0) as Chunk
 
   const IHDR = pngReadIHDR(referenceChunk)

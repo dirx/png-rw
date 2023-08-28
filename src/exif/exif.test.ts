@@ -4,7 +4,7 @@ import { Ascii, Byte, Double, Float, Long, Rational, SByte, Short, SLong, SRatio
 import { TiffWriter } from './tiff-writer.ts'
 import { ByteOrder } from '../buffer/data-types.ts'
 
-describe('exifEncodeIDFTageValue byte', () => {
+describe('exifWriteIDFTageValue byte', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(1)
     exifWriteIFDTagValue(
@@ -26,7 +26,7 @@ describe('exifEncodeIDFTageValue byte', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue sbyte', () => {
+describe('exifWriteIDFTageValue sbyte', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(1)
     exifWriteIFDTagValue(
@@ -48,7 +48,7 @@ describe('exifEncodeIDFTageValue sbyte', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue short', () => {
+describe('exifWriteIDFTageValue short', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(2)
     exifWriteIFDTagValue(
@@ -72,7 +72,7 @@ describe('exifEncodeIDFTageValue short', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue sshort', () => {
+describe('exifWriteIDFTageValue sshort', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(2)
     exifWriteIFDTagValue(
@@ -96,7 +96,7 @@ describe('exifEncodeIDFTageValue sshort', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue long', () => {
+describe('exifWriteIDFTageValue long', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(4)
     exifWriteIFDTagValue(
@@ -120,7 +120,7 @@ describe('exifEncodeIDFTageValue long', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue slong', () => {
+describe('exifWriteIDFTageValue slong', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(4)
     exifWriteIFDTagValue(
@@ -144,7 +144,7 @@ describe('exifEncodeIDFTageValue slong', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue float', () => {
+describe('exifWriteIDFTageValue float', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(4)
     exifWriteIFDTagValue(
@@ -168,7 +168,7 @@ describe('exifEncodeIDFTageValue float', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue double', () => {
+describe('exifWriteIDFTageValue double', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(8)
     exifWriteIFDTagValue(
@@ -192,7 +192,7 @@ describe('exifEncodeIDFTageValue double', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue rational', () => {
+describe('exifWriteIDFTageValue rational', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(8)
     exifWriteIFDTagValue(
@@ -216,7 +216,7 @@ describe('exifEncodeIDFTageValue rational', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue srational', () => {
+describe('exifWriteIDFTageValue srational', () => {
   test('with byte order big endian should encode correctly', () => {
     const data = new Uint8Array(8)
     exifWriteIFDTagValue(
@@ -240,7 +240,7 @@ describe('exifEncodeIDFTageValue srational', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue ascii', () => {
+describe('exifWriteIDFTageValue ascii', () => {
   test('with byte order big endian should encode correctly', () => {
     const value: string = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
     const data = new Uint8Array(value.length + 1)
@@ -274,7 +274,7 @@ describe('exifEncodeIDFTageValue ascii', () => {
   })
 })
 
-describe('exifEncodeIDFTageValue undefined', () => {
+describe('exifWriteIDFTageValue undefined', () => {
   test('with byte order big endian should encode correctly', () => {
     const value = new Uint8Array([1, 34, 46, 234, 213, 23, 87, 66, 65, 45])
     const data = new Uint8Array(value.length)

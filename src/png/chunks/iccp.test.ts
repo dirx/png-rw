@@ -8,7 +8,7 @@ import { ICCProfileDisplayP3CompatV4Deflated } from '../../icc/compact-profiles.
 const referenceImage = readFileSync(process.cwd() + '/resources/png-rw-reference.png')
 const referenceImageData = new Uint8Array(referenceImage)
 
-test('encode iCCP chunk should be same like reference chunk', () => {
+test('write iCCP chunk should match reference chunk', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.ICCP).at(0)
 
   const chunk = pngWriteICCP({
@@ -20,7 +20,7 @@ test('encode iCCP chunk should be same like reference chunk', () => {
   expect(chunk).toStrictEqual(referenceChunk)
 })
 
-test('decode iCCP reference chunk should match iCCP object', () => {
+test('read iCCP reference chunk should match iCCP object', () => {
   const referenceChunk = pngRead(referenceImageData).filter((chunk) => chunk.type === ChunkType.ICCP).at(0)
 
   const iCCP = pngReadICCP(referenceChunk as Chunk)
