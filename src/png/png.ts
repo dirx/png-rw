@@ -59,9 +59,11 @@ export function pngWrite (chunks: Chunk[]): Uint8Array {
     writer.setUint32(chunk.crc)
   }
 
-  // write all chunks first but IDAT and IEND last
-  chunks.filter((chunk) => chunk.type !== ChunkType.IDAT && chunk.type !== ChunkType.IEND).forEach((chunk) => { write(chunk) })
-  chunks.filter((chunk) => chunk.type === ChunkType.IDAT || chunk.type === ChunkType.IEND).forEach((chunk) => { write(chunk) })
+  // write IHDR first, then all except IHDR, IDAT and IEND, then IDAT, then IEND
+  chunks.filter((chunk) => chunk.type === ChunkType.IHDR).forEach((chunk) => { write(chunk) })
+  chunks.filter((chunk) => ![ChunkType.IHDR, ChunkType.IDAT, ChunkType.IEND].includes(chunk.type)).forEach((chunk) => { write(chunk) })
+  chunks.filter((chunk) => chunk.type === ChunkType.IDAT).forEach((chunk) => { write(chunk) })
+  chunks.filter((chunk) => chunk.type === ChunkType.IEND).forEach((chunk) => { write(chunk) })
 
   return data
 }
