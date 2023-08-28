@@ -25,15 +25,16 @@ npm i png-rw
 
 Reading / writing raw chunks is supported. This table show support encoding/decoding chunk data.
 
-| Type | Read | Write | Limitations                                           |
-|------|------|-------|-------------------------------------------------------|
-| tEXt | ✔️   | ✔️    | you have to take care of proper latin1 handling       |
-| iTXt | ✔️   | ✔️    | value inflate/deflate not supported, use for XMP data |
-| zTXt | ✔️   | ✔️    | value inflate/deflate not supported                   |
-| eXIf | ️    | ✔️    | tag id & data type mappings are supported             |
-| iCCP | ✔️   | ✔️    | value inflate/deflate not supported                   |
-| sRGB |      |       | should not be present if iCCP is used                 |
-| tXMP |      |       | use ITXt for XMP                                      |
+| Type | Read | Write | Limitations                                     |
+|------|------|-------|-------------------------------------------------|
+| IHDR | ✔️   | ✔️    | no verification of value constraints            |
+| tEXt | ✔️   | ✔️    | you have to take care of proper latin1 handling |
+| iTXt | ✔️   | ✔️    | compression not supported                       |
+| zTXt | ✔️   | ✔️    | your have to take care of compression           |
+| eXIf | ️    | ✔️    | tag id & data type mappings are supported       |
+| iCCP | ✔️   | ✔️    | compression not supported                       |
+| sRGB |      |       | should not be present if iCCP is used           |
+| tXMP |      |       | use ITXt for XMP                                |
 
 ## Usage
 
@@ -100,6 +101,7 @@ canvas.toBlob((blob: Blob | null) => {
     )
 
     // note: values are only exemplary
+    let ihdr = chunks.filter((chunk) => chunk.type === ChunkType.IHDR).at(0);
     chunks.push(
       pngWriteEXIF({
         ifd0: new Ifd(
@@ -116,8 +118,8 @@ canvas.toBlob((blob: Blob | null) => {
                 new IfdTag(TagExifId.ExifVersion, new Undefined(stringEncode('0232'))),
                 new IfdTag(TagExifId.ComponentsConfiguration, new Undefined(new Uint8Array([1, 2, 3, 0]))),
                 new IfdTag(TagExifId.ColorSpace, new Short(0xffff)),
-                new IfdTag(TagExifId.ExifImageWidth, new Short(200)),
-                new IfdTag(TagExifId.ExifImageHeight, new Short(200))
+                new IfdTag(TagExifId.ExifImageWidth, new Short(ihdr.imageWidth)),
+                new IfdTag(TagExifId.ExifImageHeight, new Short(ihdr.imageHeight))
               ]
             )
           ]
@@ -158,6 +160,7 @@ canvas.toBlob((blob: Blob | null) => {
 - https://www.awaresystems.be/imaging/tiff/faq.html
 - https://www.awaresystems.be/imaging/tiff/tifftags/privateifd.html
 - https://exiftool.org/TagNames/XMP.html
+- https://github.com/eeeps/exif-intrinsic-sizing-explainer
 
 ### Libraries
 
