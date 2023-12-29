@@ -24,7 +24,8 @@
   "exports": {
     ".": {
       "import": "./dist/png-rw.js",
-      "require": "./dist/png-rw.umd.cjs"
+      "require": "./dist/png-rw.umd.cjs",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
